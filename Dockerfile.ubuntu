@@ -1,0 +1,43 @@
+FROM ubuntu:22.04
+
+# Update system and install required packages
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install -y \
+    php php-cli php-fpm php-json php-common php-mysql php-zip php-gd php-intl php-mbstring php-curl php-xml php-pear php-tidy php-soap php-bcmath php-xmlrpc \
+    apache2 libapache2-mod-php wget
+
+RUN mkdir -p /etc/php/apache2/
+
+# # Set PHP memory limit and timezone
+# RUN echo "memory_limit = 256M" > /etc/php/apache2/php.ini && \
+#     echo "date.timezone = UTC" >> /etc/php/apache2/php.ini
+
+# Copy php.ini to be used in the final stage
+COPY php.ini /etc/php/apache2/php.ini
+
+# Download and install Drupal 10
+WORKDIR /var/www/html
+RUN wget -qO-  https://ftp.drupal.org/files/projects/drupal-10.2.5.tar.gz | tar xz --strip-components=1
+
+# Change ownership and permissions
+RUN chown -R www-data:www-data /var/www/html && \
+    chmod -R 755 /var/www/html
+
+# Copy Apache configuration
+COPY apache.conf /etc/apache2/sites-available/drupal.conf
+
+# Disable default Apache page and enable Drupal site
+RUN a2dissite 000-default.conf && \
+    a2ensite drupal.conf && \
+    a2dismod mpm_event && \
+    a2enmod mpm_prefork && \
+    a2enmod php8.1 && \
+    a2enmod rewrite && \
+    service apache2 restart
+
+# Expose the port used by docker-compose
+EXPOSE 80
+
+# Run Apache in foreground for development
+CMD ["apache2ctl", "-D", "FOREGROUND"]
