@@ -20,8 +20,8 @@ services:
     #image: my_app111
     build: 
       context: .
-      dockerfile: Dockerfile.ubuntu
-      #dockerfile: Dockerfile.ubuntu-multi
+      #dockerfile: Dockerfile.ubuntu
+      dockerfile: Dockerfile.ubuntu-multi
     restart: always
     ports:
       - "80"

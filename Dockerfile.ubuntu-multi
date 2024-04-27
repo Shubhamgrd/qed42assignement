@@ -33,7 +33,7 @@ RUN a2enmod rewrite && \
 
 # Install PHP extensions
 RUN apt-get update && \
-    apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev && \
+    apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev curl && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install gd opcache pdo_mysql mysqli && \
     docker-php-ext-enable pdo_mysql mysqli opcache
