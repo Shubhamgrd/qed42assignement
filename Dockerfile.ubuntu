@@ -41,3 +41,5 @@ EXPOSE 80
 
 # Run Apache in foreground for development
 CMD ["apache2ctl", "-D", "FOREGROUND"]
+
+#Size ~ 520MB

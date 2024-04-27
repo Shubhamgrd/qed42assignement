@@ -73,4 +73,4 @@ Consider using a development environment like Docker Compose with a .env file to
 For development purposes, you can mount your local code directory as a volume within the container to enable live code updates.
 This guide provides a starting point for your containerized Drupal development environment. Remember to adapt it to your specific needs and security best practices.
 
-docker-compose up --scale redis-master=3 -d
+docker-compose up --scale <app_name>=3 -d
