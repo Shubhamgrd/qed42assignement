@@ -20,7 +20,7 @@ services:
     #image: my_app111
     build: 
       context: .
-      dockerfile: Dockerfile.ubuntu-multi
+      dockerfile: Dockerfile.ubuntu
       #dockerfile: Dockerfile
     restart: always
     ports:
@@ -52,7 +52,7 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - "80:80"  # Expose port 81
+      - "80:80"  # Expose port 80
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
