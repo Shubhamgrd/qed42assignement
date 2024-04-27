@@ -21,10 +21,12 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile.ubuntu
-      #dockerfile: Dockerfile
+      #dockerfile: Dockerfile.ubuntu-multi
     restart: always
     ports:
       - "80"
+    # ports:
+    #   - "80:80"
     environment:
       - DRUPAL_DATABASE_HOST=db
       - DRUPAL_DATABASE_PORT=3306
@@ -37,7 +39,7 @@ services:
     networks:
       - my-app-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost"]
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
       interval: 30s
       timeout: 10s
       retries: 3

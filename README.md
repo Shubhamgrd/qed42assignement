@@ -1,76 +1,60 @@
-This README provides instructions for setting up a local development environment for Drupal 10.x using Docker. This environment prioritizes security, efficiency, and scalability, adhering to best practices in containerization.
+Setting Up a Local Development Environment for Drupal 10.x Using Docker
+This README provides detailed instructions for configuring a local development environment for Drupal 10.x using Docker. The environment aims to prioritize security, efficiency, and scalability, adhering to best practices in containerization.
 
-Prerequisites:
+Prerequisites
+Ensure that Docker is installed on your system by following the instructions provided in the Docker documentation.
 
-Docker installed: https://docs.docker.com/engine/install/
-Directory Structure:
-
-This project uses two main directories:
-
-docker-compose-volume-mount: This directory uses Docker Compose with volume mounts for Drupal files.
-docker-compose-no-volume-mount: This directory uses Docker Compose without volume mounts, storing Drupal files within the container.
+Directory Structure
+The directory structure for this project includes the following components:
 Dockerfiles:
+Dockerfile.ubuntu: A single-stage Dockerfile based on the Ubuntu base image, used to build a Drupal image.
+Dockerfile.ubuntu-multi: A multi-stage Dockerfile designed for building a smaller Drupal image by separating the build and runtime environments. However, it may have some issues that need to be addressed.
+.env: This file is utilized for storing sensitive information as environment variables, enhancing security by avoiding the exposure of credentials in the Docker Compose files.
+apache.conf: Configuration file for Apache used in the Drupal containers to access the service.
+docker-compose.yml: This file enables the management of multiple containers using a single configuration file.
+nginx.conf: Used for Load Balancing of multiple Drupal containers.
+php.ini: Configuration file for PHP settings and enabling the GD extension, allowing customization of PHP behavior based on application requirements.
 
-Dockerfile: This single-stage Dockerfile builds a Drupal image (not recommended for production due to larger size).
-Dockerfile.multi: This multi-stage Dockerfile builds a smaller Drupal image by separating the build and runtime environments (recommended for production).
-Security Considerations:
+Note:
+I attempted to use php:8.1-apache as the base image, but encountered intermittent issues. To eliminate ambiguity, I've removed it. Surprisingly, the smallest image size was achieved using the single-stage Ubuntu base image for Drupal.
 
-Base Image: Use an official, minimal base image like php:8.1-apache.
+Security Considerations
+Base Image: Utilized an official, minimal base image such as ubuntu:22.04.
 Permissions: Grant minimal permissions to processes within the container.
 Exposure: Only expose necessary ports (e.g., port 80 for Drupal).
-Environment Variables: Store sensitive data like database credentials in a .env file (explained below).
-Building Images:
+Environment Variables: Store sensitive data like database credentials in a .env file.
+Building Images
 
-Single-Stage Build (docker-compose-volume-mount & docker-compose-no-volume-mount):
-
-Bash
+Single-Stage Build:
 cd <project_directory>/<directory_name>  # Replace with your directory path
-docker build -t drupal_dev .
-Use code with caution.
-Multi-Stage Build (docker-compose-volume-mount & docker-compose-no-volume-mount):
+docker build -f Dockerfile.ubuntu -t my_image_ubuntu .
 
-Bash
+Multi-Stage Build:
 cd <project_directory>/<directory_name>  # Replace with your directory path
-docker build -t drupal_dev:multi-stage -f Dockerfile.multi .
-Use code with caution.
-Running the Application with Docker Compose:
+docker build -f Dockerfile.ubuntu-multi -t my_image_ubuntu_multi .
 
-Both directories use similar Docker Compose configurations. Navigate to the desired directory and run:
+Running the Application with Images
+docker run -d -p 80:80 <image_name>
 
-Bash
+Docker Compose
+cd <project_directory>/<directory_name>  # Replace with your directory path
+# Create an empty directory <drupal_data> for persistent storage, then
 docker-compose up -d
-Use code with caution.
 This command builds the Drupal image (using the specified Dockerfile) and starts the container with the necessary services (e.g., database).
 
-Accessing Drupal:
+Accessing Drupal
+Once the container is running, access your Drupal site by visiting http://localhost/<ec2_public_ip>:80 in your web browser. You'll need to complete the Drupal installation process to set up your site.
 
-Once the container is running, access your Drupal site by visiting http://localhost:8080 (or the port specified in your apache.conf file) in your web browser. You'll need to complete the Drupal installation process to set up your site.
+Using Environment Variables
+This project utilizes a .env file to manage sensitive environment variables like database credentials. This improves security by keeping this information out of the main docker-compose.yml file. Use the credentials mentioned in the .env file to configure your Drupal site.
 
-Using Environment Variables:
-
-This project uses a .env file to manage sensitive environment variables like database credentials. This improves security by keeping this information out of the main docker-compose.yml file. Here's how to use it:
-
-Create a file named .env in the same directory as your docker-compose.yml file.
-Define your environment variables within the .env file, following this format:
-MYSQL_DATABASE=drupal
-MYSQL_USER=drupaluser
-MYSQL_PASSWORD=drupalpassword
-MYSQL_ROOT_PASSWORD=rootpassword
-Update the docker-compose.yml file to reference these environment variables using ${variable_name} syntax within the environment section of your services.
-Further Optimizations:
-
-While reducing the image size is beneficial, prioritize security for production environments. Here are some exploration points for the multi-stage build:
-
-Consider installing only required PHP extensions during the build stage.
-Explore techniques like copying only specific Drupal core files instead of the entire archive.
-Reference Document:
-
-The provided reference document [removed URL] seems to be for a native Ubuntu installation. This guide focuses on a containerized approach using Docker.
-
-Additional Notes:
-
-Consider using a development environment like Docker Compose with a .env file to manage environment variables securely.
-For development purposes, you can mount your local code directory as a volume within the container to enable live code updates.
-This guide provides a starting point for your containerized Drupal development environment. Remember to adapt it to your specific needs and security best practices.
-
+Manual Scaling
+To manually scale the application, use the following command:
 docker-compose up --scale <app_name>=3 -d
+This command will scale the specified service to three instances. Adjust the <app_name> parameter as needed.
+
+More Improvements to Explore:
+I need to delve deeper into the utilization of multi-stage Docker builds, as the results of my previous attempt did not meet expectations.
+Consider integrating monitoring tools into the Docker Compose files to streamline log management. This allows logs to be mapped to external tools for easier troubleshooting, rather than relying solely on manual inspection.
+Remember not to share the .env file with other developers. Instead, manage it using the .gitignore file to safeguard sensitive information.
+Consider setting up a domain for improved accessibility and organization. Additionally, explore implementing a development version of SSL certificates. Note that further exploration in this area was limited due to the usage of a public VM (AWS EC2).
