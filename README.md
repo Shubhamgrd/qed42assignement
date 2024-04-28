@@ -9,9 +9,13 @@ This README provides detailed instructions for configuring a secure, efficient, 
 **Docker**: Ensure Docker is installed on your system. Refer to the official Docker documentation for installation instructions: https://docs.docker.com/engine/install/
 
 **Security Considerations**
+
 **Base Image**: Utilize an official, minimal base image like ubuntu:22.04.
+
 **Permissions**: Grant minimal permissions to processes within the container.
+
 **Exposure**: Only expose necessary ports (e.g., port 80 for Drupal).
+
 **Environment Variables**: Store sensitive data like database credentials in a .env file outside version control (gitignore).
 
 **Building Images**
@@ -81,7 +85,9 @@ Replace <app_name> with the service name specified in docker-compose.yml (usuall
 **Further Explorations**
 
 **Refine Multi-Stage Docker Builds**: Investigate and optimize the multi-stage Dockerfile for potential size and performance benefits.
+
 **Monitor Logs**: Consider integrating logging tools into docker-compose.yml to streamline log management and easier troubleshooting (e.g., centralized logging platforms).
+
 **Version Control and Security**:
   Add .env to .gitignore to prevent sensitive information
 
