@@ -38,17 +38,17 @@ services:
       #- ./drupal_data:/var/www/html
     networks:
       - my-app-network
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost:80"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
     healthcheck:
-      test: wget --no-verbose --tries=1 --spider http://localhost || exit 1
-      interval: 5m
-      timeout: 3s
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
       retries: 3
-      start_period: 2m
+    # healthcheck:
+    #   test: wget --no-verbose --tries=1 --spider http://localhost || exit 1
+    #   interval: 5m
+    #   timeout: 3s
+    #   retries: 3
+    #   start_period: 2m
     deploy:
       replicas: 3  # Adjust the number of replicas as needed
       resources:
