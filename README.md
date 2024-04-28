@@ -114,3 +114,5 @@ Replace <app_name> with the service name specified in docker-compose.yml (usuall
 The php:8.1-apache base image was excluded due to intermittent issues. Surprisingly, the single-stage Ubuntu base image yielded the smallest image size for Drupal.
 
 I've made several attempts to reduce the size of the Docker image, but haven't achieved significant success yet. Perhaps further exploration and experimentation in this area are needed.
+
+In the healthcheck configuration, the 'curl' command functions properly with Dockerfile.ubuntu-multi, while 'wget' works with Dockerfile.ubuntu. Although we attempted to install 'curl' in Dockerfile.ubuntu, we encountered some issues, prompting us to modify the healthcheck configuration in the docker-compose.yml file.
