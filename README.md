@@ -48,7 +48,7 @@ docker run -d -p 80:80 <image_name>
 
 Replace <image_name> with the name you used during the build process (e.g., my_image_ubuntu).
 
-**Docker Compose**
+## Docker Compose
 
 Navigate to the directory containing docker-compose.yml:
 
@@ -64,7 +64,7 @@ docker-compose up -d
 
 This command builds the Drupal image (using the Dockerfile specified in docker-compose.yml) and starts the container with the associated database and other services.
 
-**Accessing Drupal**
+## Accessing Drupal
 
 Once the container is running, access your Drupal site by visiting:
 
@@ -84,7 +84,7 @@ docker-compose up --scale <app_name>=3 -d
 
 Replace <app_name> with the service name specified in docker-compose.yml (usually drupal) and adjust the number of instances (3 in this example) as needed.
 
-**Further Explorations**
+## Further Explorations
 
 **Refine Multi-Stage Docker Builds**: Investigate and optimize the multi-stage Dockerfile for potential size and performance benefits.
 
