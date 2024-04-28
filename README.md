@@ -8,6 +8,8 @@ This README provides detailed instructions for configuring a secure, efficient, 
 
 **Docker**: Ensure Docker is installed on your system. Refer to the official Docker documentation for installation instructions: https://docs.docker.com/engine/install/
 
+**Docker Compose**: Install Docker Compose Plugin https://docs.docker.com/compose/install/linux/
+
 **Security Considerations**
 
 **Base Image**: Utilize an official, minimal base image like ubuntu:22.04.
@@ -90,8 +92,6 @@ Replace <app_name> with the service name specified in docker-compose.yml (usuall
 
 **Version Control and Security**:
   Add .env to .gitignore to prevent sensitive information
-
-
 
 
 **Note**:
