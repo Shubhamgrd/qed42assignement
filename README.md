@@ -20,7 +20,7 @@ This README provides detailed instructions for configuring a secure, efficient, 
 
 **Environment Variables**: Store sensitive data like database credentials in a .env file outside version control (gitignore).
 
-**Building Images**
+## Building Images
 
 **Single-Stage Build**
 
@@ -94,5 +94,5 @@ Replace <app_name> with the service name specified in docker-compose.yml (usuall
   Add .env to .gitignore to prevent sensitive information
 
 
-**Note**:
+## Note:
 The php:8.1-apache base image was excluded due to intermittent issues. Surprisingly, the single-stage Ubuntu base image yielded the smallest image size for Drupal.
