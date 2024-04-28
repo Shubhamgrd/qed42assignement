@@ -4,7 +4,7 @@ FROM ubuntu:22.04
 RUN apt-get update && \
     apt-get upgrade -y && \
     DEBIAN_FRONTEND="noninteractive" apt-get install -y \
-    php php-cli php-fpm php-json php-common php-mysql php-zip php-gd php-intl php-mbstring php-curl php-xml php-pear php-tidy php-soap php-bcmath php-xmlrpc \
+    php php-cli php-fpm php-json php-common php-mysql php-zip php-gd php-intl php-mbstring php-curl php-xml php-pear php-tidy php-soap php-bcmath php-xmlrpc php-sqlite3 \
     apache2 libapache2-mod-php wget
 
 RUN mkdir -p /etc/php/apache2/
@@ -41,5 +41,3 @@ EXPOSE 80
 
 # Run Apache in foreground for development
 CMD ["apache2ctl", "-D", "FOREGROUND"]
-
-#Size ~ 520MB
