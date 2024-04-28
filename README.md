@@ -20,6 +20,22 @@ This README provides detailed instructions for configuring a secure, efficient, 
 
 **Environment Variables**: Store sensitive data like database credentials in a .env file outside version control (gitignore).
 
+## Directory Structure
+
+**Dockerfile.ubuntu**: This file contains instructions for building a Docker image based on the Ubuntu operating system. It's used to create a Docker image for running Drupal in a containerized environment.
+
+**Dockerfile.ubuntu-multi**: Similar to Dockerfile.ubuntu, this file also contains instructions for building a Docker image based on Ubuntu. However, it's designed for multi-stage builds, aiming to create a smaller Docker image by separating the build and runtime environments.
+
+**apache.conf**: This file contains the Apache configuration settings used by the Drupal containers to access the service. It specifies server configurations such as document root, logging, and directory permissions.
+
+**docker-compose.yml**: This file is used to define and manage multi-container Docker applications. It describes the services, networks, and volumes required for the Dockerized Drupal environment, including services like MySQL, Drupal, and Nginx.
+
+**nginx.conf**: Similar to apache.conf, this file contains the Nginx configuration settings used for Load Balancing of multiple Drupal containers. It specifies server configurations such as proxy settings, upstream servers, and HTTP handling.
+
+**php.ini**: This file is a configuration file for PHP settings used by the Drupal containers. It configures PHP behavior according to the application's requirements, such as memory limit, timezone, and enabled extensions like GD.
+
+**README.md**: This file! It provides instructions and information about setting up a local development environment for Drupal using Docker. It's the main documentation for the project.
+
 ## Building Images
 
 **Single-Stage Build**
