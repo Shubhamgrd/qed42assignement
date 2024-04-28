@@ -1,16 +1,16 @@
 **Setting Up a Local Development Environment for Drupal 10.x Using Docker**
 
-**Introduction**
+## Introduction
 
 This README provides detailed instructions for configuring a secure, efficient, and scalable local development environment for Drupal 10.x using Docker. The environment adheres to best practices in containerization for a seamless development experience.
 
-**Prerequisites**
+## Prerequisites
 
 **Docker**: Ensure Docker is installed on your system. Refer to the official Docker documentation for installation instructions: https://docs.docker.com/engine/install/
 
 **Docker Compose**: Install Docker Compose Plugin https://docs.docker.com/compose/install/linux/
 
-**Security Considerations**
+## Security Considerations
 
 **Base Image**: Utilize an official, minimal base image like ubuntu:22.04.
 
