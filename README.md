@@ -119,18 +119,31 @@ https://medium.com/@tomer.klein/step-by-step-tutorial-installing-docker-and-dock
 
 ## Some Docker Command Used:
 docker build -t <image_tag> .
+
 docker run -d -p 8080:80 <image>
+
 docker ps
+
 docker volume ls
+
 docker images
+
 docker exec -it <container_id> /bin/bash
+
 docker rmi <image>
+
 docker volume rm <volume>
+
 docker network ls
+
 docker compose up -d
+
 docker compose down
+
 docker system prune
+
 docker logs <container_id>
+
 
 ## Note
 The php:8.1-apache base image was excluded due to intermittent issues. Surprisingly, the single-stage Ubuntu base image yielded the smallest image size for Drupal.
