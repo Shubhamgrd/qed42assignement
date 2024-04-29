@@ -109,6 +109,28 @@ Replace <app_name> with the service name specified in docker-compose.yml (usuall
 **Version Control and Security**:
   Add .env to .gitignore to prevent sensitive information
 
+## Reference Document:
+
+https://vegastack.com/tutorials/how-to-install-drupal-on-ubuntu-22-04/
+
+https://medium.com/devops-technical-notes-and-manuals/how-to-install-docker-on-ubuntu-22-04-b771fe57f3d2
+
+https://medium.com/@tomer.klein/step-by-step-tutorial-installing-docker-and-docker-compose-on-ubuntu-a98a1b7aaed0
+
+## Some Docker Command Used:
+docker build -t <image_tag> .
+docker run -d -p 8080:80 <image>
+docker ps
+docker volume ls
+docker images
+docker exec -it <container_id> /bin/bash
+docker rmi <image>
+docker volume rm <volume>
+docker network ls
+docker compose up -d
+docker compose down
+docker system prune
+docker logs <container_id>
 
 ## Note
 The php:8.1-apache base image was excluded due to intermittent issues. Surprisingly, the single-stage Ubuntu base image yielded the smallest image size for Drupal.
